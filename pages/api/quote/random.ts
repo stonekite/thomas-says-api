@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import getDb from "../../../knex/connection"
+import runCorsMiddleware from "../../../helpers/cors"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  await runCorsMiddleware(req, res, "GET")
+
   const quoteIds = await getDb()("quotes")
     .select("id")
     .from("quotes")
