@@ -9,8 +9,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     .select("quotes.text as text", "authors.name as authorName")
     .where("quotes.id", req.query?.id)
     .join("authors", "authors.id", "=", "quotes.author_id")
+    .first()
 
-  res.status(200).json(quote?.[0])
+  res.status(200).json(quote)
 }
 
 export default handler
