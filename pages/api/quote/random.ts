@@ -5,13 +5,15 @@ import runCorsMiddleware from "../../../helpers/cors"
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await runCorsMiddleware(req, res, "GET")
 
-  const quoteIds = await getDb()("quotes")
+  const quoteIds: { id: number }[] =
+    await getDb()("quotes")
     .select("id")
     .from("quotes")
 
   const quoteId = quoteIds[Math.floor(Math.random() * quoteIds.length)]?.id
 
-  const quote = await getDb()("quotes")
+  const quote: { text: string; authorName: string } = 
+    await getDb()("quotes")
     .select("quotes.text as text", "authors.name as authorName")
     .where("quotes.id", quoteId)
     .join("authors", "authors.id", "=", "quotes.author_id")

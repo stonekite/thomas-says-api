@@ -1,6 +1,8 @@
 import Cors from "cors"
+import type { NextApiRequest, NextApiResponse } from "next"
 
-const runCorsMiddleware = async (req, res, ...methods) => {
+
+const runCorsMiddleware = async (req: NextApiRequest, res: NextApiResponse, ...methods: string[]) => {
   const cors = Cors(methods)
 
   return new Promise((resolve, reject) => {

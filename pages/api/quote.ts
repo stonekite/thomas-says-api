@@ -8,13 +8,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (httpMethod) {
     case "GET": {
-      const quoteIds = await getDb()("quotes")
+      const quoteIds: { id: string }[] = 
+        await getDb()("quotes")
         .select("id")
         .from("quotes")
 
       const quoteId = quoteIds[Math.floor(Math.random() * quoteIds.length)]?.id
 
-      const quote = await getDb()("quotes")
+      const quote: { text: string; authorName: string } =
+        await getDb()("quotes")
         .select("quotes.text as text", "authors.name as authorName")
         .where("quotes.id", quoteId)
         .join("authors", "authors.id", "=", "quotes.author_id")
@@ -24,9 +26,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     } break
 
     case "POST": {
-      const { text, authorName } = req.body
+      const { text, authorName }: { text: string, authorName: string } = req.body
 
-      const author = await getDb()("authors")
+      const author: { id: number } = 
+        await getDb()("authors")
         .select("id")
         .where("name", authorName)
         .first()
@@ -34,7 +37,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       let authorId = author?.id
 
       if (!authorId) {
-        authorId = await getDb()("authors")
+        authorId =
+          await getDb()("authors")
           .insert({ name: authorName })
       }
 

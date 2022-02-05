@@ -4,7 +4,7 @@ import type { Knex } from "knex"
 
 let cachedConnection: Knex
 
-const getConnection = () => {
+const getConnection = (): Knex => {
   if (!cachedConnection) {
     cachedConnection = knex(config)
   }
