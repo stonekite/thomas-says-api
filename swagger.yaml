@@ -1,0 +1,72 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "thomas-says-api"
+host: "thomas-says-api.vercel.app"
+basePath: "/api"
+tags:
+- name: "quote"
+paths:
+  /quote:
+    get:
+      tags:
+      - "quote"
+      summary: "Get a random quote"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Quote"
+    post:
+      tags:
+      - "quote"
+      summary: "Add a new quote"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        schema:
+          $ref: "#/definitions/Quote"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      tags:
+      - "quote"
+      summary: "Delete a quote by text or id"
+      parameters:
+      - name: "text"
+        in: "query"
+        type: "string"
+      - name: "id"
+        in: "query"
+        type: "number"
+      responses:
+        "200":
+          description: "OK"
+  /quote/random:
+    get:
+      tags:
+      - "quote"
+      summary: "Get a random quote (deprecated in favor of GET /quote)"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Quote"
+definitions:
+  Quote:
+    type: "object"
+    properties:
+      text:
+        type: "string"
+      authorName:
+        type: "string"
