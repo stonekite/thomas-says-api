@@ -9,8 +9,8 @@ Uses Node.js, Next.js and knex.js.
 
 ## Run locally
 
-1. Run a PostgreSQL server
-2. Clone repo
+1. Clone repo
+2. Run a PostgreSQL server
 3. Create .env file in root directory (refer to [.env.example](./.env.example))
 4. `npm install`
 5. `npx next dev`
