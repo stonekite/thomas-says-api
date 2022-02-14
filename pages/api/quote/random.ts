@@ -8,7 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const quoteIds: { id: number }[] =
     await getDb()("quotes")
     .select("id")
-    .from("quotes")
 
   const quoteId = quoteIds[Math.floor(Math.random() * quoteIds.length)]?.id
 
