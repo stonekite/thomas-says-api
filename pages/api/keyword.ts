@@ -28,7 +28,7 @@ const handler = async (req: Request, res: NextApiResponse) => {
       const { text, quoteText }: { text: string, quoteText: string } = req.body
 
       const quote: { id: number } = 
-        await getDb()("authors")
+        await getDb()("quotes")
         .select("id")
         .where("text", quoteText)
         .first()
