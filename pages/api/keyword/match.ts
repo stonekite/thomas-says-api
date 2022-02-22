@@ -11,7 +11,7 @@ interface Request extends NextApiRequest {
 const handler = async (req: Request, res: NextApiResponse) => {
   await runCorsMiddleware(req, res, "POST")
 
-  const { message = "" } = req.body
+  const message = req.body.message.toLowerCase()
 
   const keywords: { keyword: string; text: string; authorName: string }[] =
     await getDb()("keywords")
