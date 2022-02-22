@@ -2,7 +2,14 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import getDb from "../../knex/connection"
 import runCorsMiddleware from "../../helpers/cors"
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+interface Request extends NextApiRequest {
+  query: {
+    id: string
+    text: string
+  }
+}
+
+const handler = async (req: Request, res: NextApiResponse) => {
   const httpMethod = req.method
   await runCorsMiddleware(req, res, httpMethod)
 

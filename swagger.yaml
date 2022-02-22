@@ -6,6 +6,7 @@ host: "thomas-says-api.vercel.app"
 basePath: "/api"
 tags:
 - name: "quote"
+- name: "keyword"
 paths:
   /quote:
     get:
@@ -60,6 +61,72 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/Quote"
+  /keyword:
+    get:
+      tags:
+      - "keyword"
+      summary: "Get all keywords with corresponding quotes"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            allOf:
+            - type: "object"
+              properties:
+                id:
+                  type: "number"
+                keyword:
+                  type: "string"
+            - $ref: "#/definitions/Quote"
+    post:
+      tags:
+      - "keyword"
+      summary: "Add a new keyword"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            text:
+              type: "string"
+            quoteText:
+              type: "string"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      tags:
+      - "keyword"
+      summary: "Delete a keyword by text or id"
+      parameters:
+      - name: "text"
+        in: "query"
+        type: "string"
+      - name: "id"
+        in: "query"
+        type: "number"
+      responses:
+        "200":
+          description: "OK"
+  /keyword/match:
+    post:
+      tags:
+      - "keyword"
+      summary: "Get a random quote that matches one of the keywords in a message"
+      parameters:
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            message:
+              type: "string"
 definitions:
   Quote:
     type: "object"
