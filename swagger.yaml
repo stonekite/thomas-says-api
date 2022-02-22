@@ -127,6 +127,11 @@ paths:
           properties:
             message:
               type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Quote"
 definitions:
   Quote:
     type: "object"
