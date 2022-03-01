@@ -26,14 +26,14 @@ const handler = async (req: Request, res: NextApiResponse) => {
 
     case "POST": {
       const { text, quoteText }: { text: string, quoteText: string } = req.body
+      let { quoteId }: { quoteId: number } = req.body
 
-      const quote: { id: number } = 
-        await getDb()("quotes")
-        .select("id")
-        .where("text", quoteText)
-        .first()
-
-      let quoteId = quote?.id
+      quoteId = quoteId || (
+          await getDb()("quotes")
+          .select("id")
+          .where("text", quoteText)
+          .first()
+        )?.id
 
       await getDb()("keywords")
         .insert({ 

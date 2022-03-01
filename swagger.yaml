@@ -96,6 +96,8 @@ paths:
               type: "string"
             quoteText:
               type: "string"
+            quoteId:
+              type: "number"
         required: true
       responses:
         "200":
